@@ -1,0 +1,47 @@
+version: '2'
+services:
+
+  # The Application
+  app:
+    build:
+      context: ./
+      dockerfile: app.dockerfile
+    working_dir: /var/www
+    ports:
+      - 80:80
+    environment:
+      - "DB_PORT=3306"
+    depends_on:
+      - database
+
+  # PhpmyAdmin
+  myadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+    restart: always
+    depends_on:
+      - database
+
+  # The Database
+  database:
+    build:
+      context: ./
+      dockerfile: db.dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      - "MYSQL_HOST=192.168.99.100"
+      - "MYSQL_DATABASE=university_adm"
+      - "MYSQL_USER=admin"
+      - "MYSQL_PASSWORD=admin"
+      - "MYSQL_ROOT_PASSWORD=admin"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
