@@ -1,24 +1,49 @@
-## Laravel PHP Framework
+# University Administration Tool
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+This is a Laravel Application that helps in the administration tasks of an University such as: Semesters, Registration Periods, Students, Tutors, Documents, Student Grades, Exams, Exam Registration, Module Registration & Content Administration.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+### Use docker-compose to run application, this creates a Laravel Application with a Mysql Database and an optional Database Administration Tool - phpMyAdmin:
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+    docker-compose up
 
-## Official Documentation
+### Make sure to change the docker-compose file and .env file database settings based on your preferences :
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+    ------------------------
+    docker-compose.yaml file
+    ------------------------
 
-## Contributing
+      # The Database
+      database:
+        build:
+          context: ./
+          dockerfile: db.dockerfile
+        ports:
+          - "3306:3306"
+        environment:
+          - "MYSQL_HOST=192.168.99.100"
+          - "MYSQL_DATABASE=university_adm"
+          - "MYSQL_USER=admin"
+          - "MYSQL_PASSWORD=admin"
+          - "MYSQL_ROOT_PASSWORD=admin"
+        volumes:
+          - dbdata:/var/lib/mysql
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+      ---------
+      .env file
+      ---------
+      DB_CONNECTION=mysql
+      MYSQL_HOST=192.168.99.100
+      DB_PORT=3306
+      MYSQL_DATABASE=university_adm
+      MYSQL_USER=admin
+      MYSQL_PASSWORD=admin
 
-### License
+## Screenshots:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
-# university_adm_tool
+![UnivAdm](doc/ScreenShot1.png)
+
+![UnivAdm](doc/ScreenShot2.png)
+
+![UnivAdm](doc/ScreenShot3.png)
+
+![UnivAdm](doc/ScreenShot4.png)
